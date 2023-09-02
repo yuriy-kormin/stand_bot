@@ -1,0 +1,23 @@
+[tool.poetry]
+name = "stand-bot"
+version = "0.1.0"
+description = ""
+authors = ["yuriy.kormin <yuriy.kormin@gmail.com>"]
+readme = "README.md"
+packages = [{include = "stand_bot"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+django = "^4.2.4"
+python-dotenv = "^1.0.0"
+dj-database-url = "^2.1.0"
+python-telegram-bot = {extras = ["ext"], version = "^20.4"}
+
+[tool.poetry.group.dev.dependencies]
+django-extensions = "^3.2.1"
+flake8 = "^6.0.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
