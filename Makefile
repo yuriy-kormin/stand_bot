@@ -1,28 +1,20 @@
-MANAGE := poetry run python3 manage.py
+build:
+	docker-compose build --parallel
+up:
+	docker-compose up -d
+logs:
+	docker-compose logs
+down:
+	docker-compose down --remove-orphans
+clean:
+	docker image prune -a
 
-start:
-	${MANAGE} runserver 127.0.0.1:8000
-bot:
-	${MANAGE} telegram_bot
-shell:
-	${MANAGE} shell_plus --plain
-db:
-	${MANAGE} dbshell
-migrate:
-	${MANAGE} makemigrations
-	${MANAGE} migrate
-collectstatic:
-	${MANAGE} collectstatic --no-input --clear
-test:
-	${MANAGE} test --keepdb
-install:
-	poetry install --no-root
-lint:
-	poetry run flake8 territory_sectors --exclude migrations,migrations-old,migrations_old
-coverage:
-	poetry run python -m coverage run manage.py test
-translate:
-	${MANAGE} makemessages --locale ru --ignore=venv
-	${MANAGE} compilemessages --locale ru
-renameproject:
-	${MANAGE} renameproject djangotemplate $(name)
+BACKEND_DIR := backend
+TARGET := $(MAKECMDGOALS)
+
+include $(BACKEND_DIR)/Makefile
+
+.PHONY: $(TARGET)
+$(TARGET):
+	cd $(BACKEND_DIR) && $(MAKE) $(TARGET)
+	@true
