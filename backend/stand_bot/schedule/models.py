@@ -51,7 +51,17 @@ class Event(models.Model):
     start_date = models.DateField(auto_now_add=True)
     recurrent = models.BooleanField(default=False)
     timeslot = models.ForeignKey(to=Timeslot, on_delete=models.CASCADE)
-    publisher = models.ForeignKey(to=User, on_delete=models.CASCADE,)
+    publisher = models.ForeignKey(to=User, on_delete=models.SET_NULL,
+                                  related_name='publisher_events', null=True)
+    partner = models.ForeignKey(to=User, on_delete=models.CASCADE,
+                                related_name='partner_events', null=True)
     creator = models.ForeignKey(to=User, on_delete=models.SET_NULL,
                                 related_name='created_by_events', null=True)
     active = models.BooleanField(default=True)
+
+
+class History(models.Model):
+    date = models.DateField()
+    event = models.ForeignKey(to=Event, on_delete=models.SET_NULL,null=True)
+    is_confirmed = models.BooleanField(default=False)
+    is_successful = models.BooleanField(default=False)
