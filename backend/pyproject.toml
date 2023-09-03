@@ -12,6 +12,7 @@ django = "^4.2.4"
 python-dotenv = "^1.0.0"
 dj-database-url = "^2.1.0"
 python-telegram-bot = {extras = ["ext"], version = "^20.4"}
+psycopg2-binary = "^2.9.7"
 
 [tool.poetry.group.dev.dependencies]
 django-extensions = "^3.2.1"

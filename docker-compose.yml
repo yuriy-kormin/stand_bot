@@ -1,0 +1,33 @@
+version: "3.9"
+
+services:
+    stand_bot:
+        build:
+            context: .
+            dockerfile: Docker/stand_bot/Dockerfile
+        env_file:
+            - .env
+        environment:
+            DATABASE_URL: postgres://bot:bot@pgdatabase/bot
+        volumes:
+            - ./backend:/app/
+            - ./log:/var/log/:rw
+        expose:
+            - 8000
+        depends_on:
+            - pgdatabase
+    pgdatabase:
+        image: "postgres:latest"
+        environment:
+            - POSTGRES_USER=bot
+            - POSTGRES_PASSWORD=bot
+            - POSTGRES_DB=bot
+        expose:
+            - 5432
+        restart: always
+        volumes:
+            - pgdata:/var/lib/postgresql/data/:rw
+            - ./log:/var/log/:rw
+volumes:
+    pgdata:
+    log:

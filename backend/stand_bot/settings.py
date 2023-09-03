@@ -14,7 +14,6 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 from pathlib import Path
 from dotenv import load_dotenv
 import dj_database_url
-import telegram_django_bot
 import os
 
 load_dotenv()
@@ -46,7 +45,6 @@ DJANGO_APPS = [
 ]
 
 THIRD_PARTY_APPS = [
-    'telegram_django_bot',
     'django_extensions',
 ]
 

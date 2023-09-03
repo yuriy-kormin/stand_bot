@@ -3,6 +3,7 @@ from django.core.management.base import BaseCommand
 from telegram.ext import ApplicationBuilder, ContextTypes, CommandHandler, \
     MessageHandler, filters, CallbackQueryHandler
 from django.conf import settings
+import logging
 
 
 async def start(update, context):
@@ -11,6 +12,12 @@ async def start(update, context):
 class Command(BaseCommand):
     help = 'Run the Telegram bot'
     def handle(self, *args, **options):
+        logging.basicConfig(
+            filename='/var/log/telegram_bot/log',
+            filemode='a',
+            level=logging.INFO,
+            format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+        )
 
         bot_token = settings.TELEGRAM_TOKEN
 
